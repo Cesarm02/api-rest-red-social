@@ -1,0 +1,11 @@
+{
+  "name": "api-rest-red-social",
+  "version": "1.0.0",
+  "description": "Api rest con Node, Mongo, Express, Jwt para una red social",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cesar Medrano",
+  "license": "MIT"
+}
