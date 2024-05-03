@@ -25,9 +25,9 @@ const userRouter = require("./routers/user");
 const publicationRouter = require("./routers/publication");
 const followRouter = require("./routers/follow");
 
-app.use("/api", userRouter);
-app.use("/api", publicationRouter);
-app.use("/api", followRouter);
+app.use("/api/user", userRouter);
+app.use("/api/publication", publicationRouter);
+app.use("/api/follow", followRouter);
 
 
 //Ruta de prueba
