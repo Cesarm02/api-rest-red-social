@@ -81,8 +81,67 @@ const register = (req, res) => {
     });
 };
 
+const login = (req, res) => {
+
+  // Recoger parametros del body
+  let params = req.body;
+
+  if(!params.email || !params.password){
+    return res.status(400).send({
+      status: "error", 
+      message: "Faltan datos por enviar",
+    })
+  }
+
+  // Buscar en la base de bbdd si existe
+  User.findOne({email: params.email})
+  //Restringir visuzliación de datos
+  //.select({"password": 0})
+  .then((user) => {
+    if(!user){
+      return res.status(404).send({
+        status: "error",
+        message: "No existe el usuario"
+      });
+    }
+
+    // Comprobar su contraseña
+    const pwd = bcrypt.compareSync(params.password, user.password);
+    if(!pwd){
+      return res.status(400).send({
+        status: "error",
+        message: "No te has identificado correctamente"
+      })
+    }
+
+    // Conseguir Token
+    const token = false;
+
+    // Datos user
+
+    return res.status(200).send({
+      status: "succes",
+      message: "Te has identificado correctamente",
+      user: {
+        id: user.id,
+        name: user.name,
+        nick: user.nick
+      },
+      token
+    })
+  }).catch((error) =>{
+    return res.status(404).send({
+      status: "error",
+      message: "No existe el usuario",
+      error
+    });
+  });
+
+};
+
 // Exportar acciones
 module.exports = {
   pruebaUser,
   register,
+  login
 };
